@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DeleteProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -14,6 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::simplePaginate(10);
+
         return Inertia::render('Products', ['products' => $products]);
     }
 
@@ -36,7 +40,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $Product)
+    public function show(Product $product)
     {
         //
     }
@@ -44,7 +48,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $Product)
+    public function edit(Product $product)
     {
         //
     }
@@ -52,7 +56,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $Product)
+    public function update(Request $request, Product $product)
     {
         //
     }
@@ -60,8 +64,21 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $Product)
+    public function destroy(Product $product, Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $product_copy = $product->toArray();
+            $product->delete();
+            DB::commit();
+
+            Mail::to('rayaglenn@gmail.com')->queue(new DeleteProduct($product_copy));
+            logger('Mainam');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->route('products.index')->with('error', 'An error has occurred.');
+        }
     }
 }

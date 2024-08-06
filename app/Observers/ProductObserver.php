@@ -27,7 +27,7 @@ class ProductObserver
      */
     public function deleted(Product $product): void
     {
-        //
+        logger('Product:');
     }
 
     /**
