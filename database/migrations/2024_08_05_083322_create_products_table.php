@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('name');
             $table->integer('quantity');
-            $table->string('description');
+            $table->text('description');
             $table->float('price');
             $table->date('expiry_date');
             $table->timestamps();

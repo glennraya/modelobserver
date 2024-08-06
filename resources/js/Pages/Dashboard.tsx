@@ -4,7 +4,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import MonthlyRevenue from '@/Components/statistics/MonthlyRevenue'
 import UserEngagement from '@/Components/statistics/UserEngagement'
 import SalesChart from '@/Components/statistics/SalesChart'
-import TaskEmails from '@/Components/TaskEmails'
 
 export default function Dashboard({ auth, users }: PageProps) {
     return (
@@ -23,8 +22,6 @@ export default function Dashboard({ auth, users }: PageProps) {
                             <SalesChart />
                         </div>
                     </div>
-
-                    {/* <TaskEmails users={users} user={auth.user} /> */}
                 </div>
             </div>
         </AuthenticatedLayout>

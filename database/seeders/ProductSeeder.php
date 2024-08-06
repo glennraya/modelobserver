@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use Illuminate\Support\Str;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -128,16 +128,19 @@ class ProductSeeder extends Seeder
             'BioHarbor Marina',
         ];
 
+        $user = User::where('role', 'Manager')->first();
+
         foreach ($productNames as $name) {
             $newName = $this->generateUniqueName($productNames);
             $productNames[] = $newName;
 
             Product::create([
-                'id' => Str::uuid(),
+                'user_id' => $user->id,
                 'name' => $newName,
                 'price' => fake()->randomFloat(2, 50, 1300),
+                'quantity' => fake()->randomNumber(2),
                 'description' => fake()->paragraph(),
-                'expiry_date' => fake()->dateTime(),
+                'expiry_date' => fake()->dateTimeBetween('now', '+2 years'),
             ]);
         }
     }

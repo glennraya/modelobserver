@@ -7,6 +7,7 @@ namespace App\Models;
 use Devdojo\Auth\Models\User as AuthUser;
 // use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 
 class User extends AuthUser
@@ -45,5 +46,10 @@ class User extends AuthUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
     }
 }

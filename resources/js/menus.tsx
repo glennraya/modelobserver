@@ -36,7 +36,7 @@ const menuItems: MenuItem[] = [
     {
         label: 'Inventory',
         icon: <PiWarehouseDuotone className="size-5" />,
-        href: '/inventory'
+        href: '/products'
     },
     {
         label: 'Analytics',
