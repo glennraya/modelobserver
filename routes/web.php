@@ -28,8 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Upload a file.
-    Route::post('/upload', UploadController::class);
+    Route::get('/inventory', function () {
+        return "hello inventory";
+    });
 });
 
 require __DIR__.'/auth.php';
