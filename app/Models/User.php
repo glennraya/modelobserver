@@ -4,12 +4,15 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Observers\UserObserver;
 use Devdojo\Auth\Models\User as AuthUser;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 // use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 
+#[ObservedBy([UserObserver::class])]
 class User extends AuthUser
 {
     use HasFactory, Notifiable;
@@ -20,6 +23,7 @@ class User extends AuthUser
      * @var array<int, string>
      */
     protected $fillable = [
+        'role',
         'name',
         'email',
         'password',

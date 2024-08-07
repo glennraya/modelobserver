@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\Mail\DeleteProduct;
 use App\Models\Product;
+use Illuminate\Support\Facades\Mail;
 
 class ProductObserver
 {
@@ -27,7 +29,7 @@ class ProductObserver
      */
     public function deleted(Product $product): void
     {
-        logger('Product:');
+        Mail::to('rayaglenn@gmail.com')->queue(new DeleteProduct($product->toArray()));
     }
 
     /**

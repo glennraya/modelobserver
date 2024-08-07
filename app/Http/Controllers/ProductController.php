@@ -64,21 +64,18 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product, Request $request)
+    public function destroy(Product $product)
     {
         DB::beginTransaction();
         try {
-            $product_copy = $product->toArray();
+            // $product_copy = $product->toArray();
             $product->delete();
             DB::commit();
 
-            Mail::to('rayaglenn@gmail.com')->queue(new DeleteProduct($product_copy));
-            logger('Mainam');
+            // Mail::to('rayaglenn@gmail.com')->queue(new DeleteProduct($product_copy));
 
         } catch (\Exception $e) {
             DB::rollBack();
-
-            return redirect()->route('products.index')->with('error', 'An error has occurred.');
         }
     }
 }
