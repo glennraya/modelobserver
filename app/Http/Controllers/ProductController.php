@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\DeleteProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -68,11 +66,8 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            // $product_copy = $product->toArray();
             $product->delete();
             DB::commit();
-
-            // Mail::to('rayaglenn@gmail.com')->queue(new DeleteProduct($product_copy));
 
         } catch (\Exception $e) {
             DB::rollBack();
