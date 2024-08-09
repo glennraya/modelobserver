@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DeleteProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -68,7 +70,6 @@ class ProductController extends Controller
         try {
             $product->delete();
             DB::commit();
-
         } catch (\Exception $e) {
             DB::rollBack();
         }
